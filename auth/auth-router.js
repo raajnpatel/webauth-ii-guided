@@ -48,4 +48,19 @@ router.post('/login', (req, res) => {
     });
 });
 
+router.get('/logout', (req, res) => {
+    if(req.session) {
+        req.session.destroy(error => {
+            if (error) {
+                res
+                    .status(401)
+                    .json({errorMessage: "No User to Logout."})
+            } else {
+                res
+                    .status(200)
+                    .json({message: "You've been logged out."})
+            }
+        });
+    }
+});
 module.exports = router;
